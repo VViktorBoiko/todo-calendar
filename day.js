@@ -31,130 +31,104 @@ function addTask() {
     const title = document.getElementById("taskTitleInput").value.trim();
     const time = document.getElementById("taskTimeInput").value.trim();
     const text = document.getElementById("taskInput").value.trim();
-    const taskList = document.getElementById("taskList");
 
     if (!title || !time || !text) {
         alert("Please fill in all fields!");
         return;
     }
 
-    const taskItem = document.createElement("div");
-    taskItem.classList.add("task-card");
-    taskItem.innerHTML = `
-        <h3 class="task-title">${title}</h3>
-        <p><strong>Time:</strong> <span class="task-time">${time}</span></p>
-        <p class="task-text">${text}</p>
-        <button class="edit-btn" onclick="editTask(this)">Edit</button>
-        <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
-    `;
+    let tasks = getTasksFromStorage();
+    const newTask = { title, time, text };
+    tasks.push(newTask);
+    saveTasksToStorage(tasks);
 
-    taskList.appendChild(taskItem);
+    addTaskToDOM(newTask, tasks.length - 1);
 
-    // Сохраняем задачу в localStorage
-    saveTask({ title, time, text });
-
-    // Закрываем модальное окно
     closeTaskModal();
 }
 
-function editTask(button) {
-    let taskCard = button.parentElement;
-    
-    let title = taskCard.querySelector(".task-title");
-    let time = taskCard.querySelector(".task-time");
-    let text = taskCard.querySelector(".task-text");
+// Добавление задачи в DOM
+function addTaskToDOM(task, index) {
+    const taskList = document.getElementById("taskList");
+    const taskItem = document.createElement("div");
+    taskItem.classList.add("task-card");
 
-    // Делаем содержимое редактируемым
-    title.contentEditable = true;
-    time.contentEditable = true;
-    text.contentEditable = true;
+    taskItem.innerHTML = `
+        <h3 contenteditable="false" class="task-title">${task.title}</h3>
+        <p><strong>Time:</strong> <span class="task-time">${task.time}</span></p>
+        <p contenteditable="false" class="task-text">${task.text}</p>
+        <button class="edit-btn" onclick="editTask(${index}, this)">Edit</button>
+        <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
+    `;
 
-    // Меняем кнопку "Edit" на "Save"
-    button.innerText = "Save Changes";
-    button.onclick = function () {
-        saveEditedTask(button);
-    };
+    taskList.appendChild(taskItem);
 }
 
-function saveEditedTask(button) {
-    let taskCard = button.parentElement;
-    
-    let title = taskCard.querySelector(".task-title");
-    let time = taskCard.querySelector(".task-time");
-    let text = taskCard.querySelector(".task-text");
+// Редактирование задачи
+function editTask(index, button) {
+    let tasks = getTasksFromStorage();
+    let taskItem = document.getElementById("taskList").children[index];
 
-    // Делаем содержимое НЕ редактируемым
-    title.contentEditable = false;
-    time.contentEditable = false;
-    text.contentEditable = false;
+    let titleElement = taskItem.querySelector(".task-title");
+    let textElement = taskItem.querySelector(".task-text");
 
-    // Меняем кнопку обратно на "Edit"
-    button.innerText = "Edit";
-    button.onclick = function () {
-        editTask(button);
-    };
+    if (button.innerText === "Edit") {
+        // Включить редактирование
+        titleElement.contentEditable = "true";
+        textElement.contentEditable = "true";
+        titleElement.focus();
+        button.innerText = "Save Changes";
+        button.classList.add("save-btn");
+    } else {
+        // Сохранить изменения
+        tasks[index].title = titleElement.innerText.trim();
+        tasks[index].text = textElement.innerText.trim();
+        saveTasksToStorage(tasks);
+
+        titleElement.contentEditable = "false";
+        textElement.contentEditable = "false";
+        button.innerText = "Edit";
+        button.classList.remove("save-btn");
+    }
 }
-
 
 // Удаление задачи
-function deleteTask(button) {
-    const taskItem = button.parentElement;
-    taskItem.remove();
-
-    // Обновляем localStorage
-    updateLocalStorage();
+function deleteTask(index) {
+    let tasks = getTasksFromStorage();
+    tasks.splice(index, 1);
+    saveTasksToStorage(tasks);
+    loadTasks(); // Перезагрузить список задач
 }
 
-// Сохранение задачи в localStorage
-function saveTask(task) {
+// Получение задач из localStorage
+function getTasksFromStorage() {
     const params = new URLSearchParams(window.location.search);
     const date = params.get("date") || "default";
+    return JSON.parse(localStorage.getItem(`tasks-${date}`)) || [];
+}
 
-    let tasks = JSON.parse(localStorage.getItem(`tasks-${date}`)) || [];
-    tasks.push(task);
+// Сохранение задач в localStorage
+function saveTasksToStorage(tasks) {
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date") || "default";
     localStorage.setItem(`tasks-${date}`, JSON.stringify(tasks));
 }
 
 // Загрузка задач при открытии страницы
 function loadTasks() {
-    const params = new URLSearchParams(window.location.search);
-    const date = params.get("date") || "default";
-
-    let tasks = JSON.parse(localStorage.getItem(`tasks-${date}`)) || [];
+    let tasks = getTasksFromStorage();
     const taskList = document.getElementById("taskList");
-    taskList.innerHTML = ""; // Очищаем список перед загрузкой
+    taskList.innerHTML = "";
 
-    tasks.forEach(task => {
-        const taskItem = document.createElement("div");
-        taskItem.classList.add("task-card");
-        taskItem.innerHTML = `
-            <h3>${task.title}</h3>
-            <p><strong>Time:</strong> ${task.time}</p>
-            <p>${task.text}</p>
-            <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
-        `;
-        taskList.appendChild(taskItem);
+    tasks.forEach((task, index) => {
+        addTaskToDOM(task, index);
     });
-}
-
-// Обновление localStorage после удаления
-function updateLocalStorage() {
-    const params = new URLSearchParams(window.location.search);
-    const date = params.get("date") || "default";
-
-    let tasks = [];
-    document.querySelectorAll(".task-card").forEach(taskCard => {
-        tasks.push({
-            title: taskCard.querySelector("h3").innerText,
-            time: taskCard.querySelector("p strong").innerText,
-            text: taskCard.querySelectorAll("p")[1].innerText
-        });
-    });
-
-    localStorage.setItem(`tasks-${date}`, JSON.stringify(tasks));
 }
 
 // Переход назад
 function goBack() {
     window.location.href = "index.html";
 }
+
+// Загружаем задачи при загрузке страницы
+document.addEventListener("DOMContentLoaded", loadTasks);
