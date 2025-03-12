@@ -1,31 +1,102 @@
+/* 🌟 Общие стили */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #ff9966, #ff5e62);
+    color: #fff;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
-.container {
-    width: 90%;
-    max-width: 600px;
-    margin: 20px auto;
-}
+
+/* 📅 Контейнер календаря */
 #calendar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    max-width: 420px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* 🔢 Отдельный день в календаре */
 .day {
-    width: 40px;
-    height: 40px;
-    display: inline-flex;
+    width: 50px;
+    height: 50px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    margin: 5px;
-}
-.day:hover {
-    background: #ddd;
-}
-.day.has-tasks {
-    background-color: #ffcc00; /* Подсветка дней с задачами */
+    font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    transition: 0.3s;
+}
+
+/* 🔥 Дни с задачами */
+.day.has-tasks {
+    background: #ffcc00;
+    color: #000;
+    box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.8);
+}
+
+/* 🎯 Анимация при наведении */
+.day:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(1.1);
+}
+
+/* 📝 Контейнер задач */
+#task-list {
+    list-style: none;
+    padding: 0;
+}
+
+#task-list li {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#task-list li:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* 🔘 Кнопка */
+button {
+    background: #ffcc00;
+    color: #000;
+    padding: 10px 15px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ffd633;
+    transform: scale(1.05);
+}
+
+/* 🔗 Ссылка назад */
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 20px;
+    display: block;
+    transition: 0.3s;
+}
+
+a:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
 }
