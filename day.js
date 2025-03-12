@@ -1,44 +1,61 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
     const params = new URLSearchParams(window.location.search);
     const date = params.get("date");
-    const month = params.get("month");
-    const year = params.get("year");
 
-    document.getElementById("taskTitle").innerText = `Tasks for ${year}-${month}-${date}`;
+    document.getElementById("taskTitle").innerText = `Tasks for ${date}`;
 
-    loadTasks(`${year}-${month}-${date}`);
+    loadTasks(date);
 });
 
-function goBack() {
-    window.location.href = "index.html";
-}
-
 function showTaskModal() {
-    document.getElementById("taskModal").style.display = "flex";
+    document.getElementById("taskModal").style.display = "block";
 }
 
 function closeTaskModal() {
     document.getElementById("taskModal").style.display = "none";
 }
 
+function goBack() {
+    window.location.href = "index.html";
+}
+
 function addTask() {
-    const title = document.getElementById("taskTitleInput").value;
+    const title = document.getElementById("taskTitleInput").value.trim();
     const time = document.getElementById("taskTimeInput").value;
-    const task = document.getElementById("taskInput").value;
+    const taskText = document.getElementById("taskInput").value.trim();
 
-    if (!task.trim()) return;
+    if (title === "" || taskText === "") return;
 
-    const taskContainer = document.createElement("div");
-    taskContainer.className = "task-container";
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date");
 
-    taskContainer.innerHTML = `
-        <h3>${title}</h3>
-        <p><strong>Time:</strong> ${time}</p>
-        <p>${task}</p>
-        <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
-    `;
+    const task = { title, time, text: taskText };
 
-    document.getElementById("taskList").appendChild(taskContainer);
+    let tasks = JSON.parse(localStorage.getItem(date)) || [];
+    tasks.push(task);
+    localStorage.setItem(date, JSON.stringify(tasks));
 
     closeTaskModal();
+    loadTasks(date);
+}
+
+function loadTasks(date) {
+    const taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
+
+    const tasks = JSON.parse(localStorage.getItem(date)) || [];
+
+    tasks.forEach((task, index) => {
+        const taskCard = document.createElement("div");
+        taskCard.classList.add("task-card");
+
+        taskCard.innerHTML = `
+            <h3>${task.title}</h3>
+            <p><strong>Time:</strong> ${task.time || "No time set"}</p>
+            <p>${task.text}</p>
+            <button onclick="deleteTask('${date}', ${index})">Delete</button>
+        `;
+
+        taskList.appendChild(taskCard);
+    });
 }
