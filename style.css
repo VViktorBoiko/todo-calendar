@@ -9,19 +9,24 @@ body {
 }
 
 /* 📅 Контейнер календаря */
+#calendar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 #calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
     max-width: 420px;
-    margin: 20px auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* 🔢 Отдельный день в календаре */
+/* 🔢 Дни в календаре */
 .day {
     width: 50px;
     height: 50px;
@@ -49,7 +54,7 @@ body {
     transform: scale(1.1);
 }
 
-/* 📝 Контейнер задач */
+/* 📝 Список задач */
 #task-list {
     list-style: none;
     padding: 0;
@@ -68,7 +73,7 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
-/* 🔘 Кнопка */
+/* 🔘 Кнопки */
 button {
     background: #ffcc00;
     color: #000;
