@@ -59,3 +59,8 @@ function loadTasks(date) {
         taskList.appendChild(taskCard);
     });
 }
+
+function deleteTask(button) {
+    let taskDiv = button.parentElement;
+    taskDiv.remove();
+}

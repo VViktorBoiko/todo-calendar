@@ -25,12 +25,43 @@ h1 {
 }
 
 button {
-    background-color: #FFDD57;
     border: none;
-    padding: 10px;
-    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 8px; /* Скругление углов */
+    font-size: 16px;
     font-weight: bold;
     transition: 0.3s;
+}
+
+/* Кнопка Add Task */
+.add-task-btn {
+    background-color: #ffd700;
+    color: black;
+}
+
+.add-task-btn:hover {
+    background-color: #e6c200;
+}
+
+/* Кнопка Back */
+.back-btn {
+    background-color: #ffd700;
+    color: black;
+}
+
+.back-btn:hover {
+    background-color: #e6c200;
+}
+
+/* Кнопка Delete */
+.delete-btn {
+    background-color: red;
+    color: white;
+    border-radius: 8px; /* Скругленные углы */
+}
+
+.delete-btn:hover {
+    background-color: darkred;
 }
 
 button:hover {
