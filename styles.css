@@ -76,6 +76,38 @@ button:hover {
     background-color: #F7C948;
 }
 
+/* Стиль для кнопки редактирования */
+.edit-btn {
+    background: #ffc107; /* Желтый цвет */
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Изменение цвета при наведении */
+.edit-btn:hover {
+    background: #e0a800;
+}
+
+/* Нажатая кнопка слегка уменьшается */
+.edit-btn:active {
+    transform: scale(0.95);
+}
+
+/* Когда редактирование включено (кнопка Save Changes) */
+.save-btn {
+    background: #28a745; /* Зеленый цвет */
+    color: white;
+}
+
+.save-btn:hover {
+    background: #218838;
+}
+
+
 .weekdays {
     display: flex;
     justify-content: space-around;
@@ -89,6 +121,14 @@ button:hover {
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
     margin-top: 10px;
+}
+
+.today {
+    background-color: #ffcc00; /* Желтый фон */
+    color: black; /* Черный текст */
+    font-weight: bold;
+    border: 2px solid #ff9800; /* Оранжевая обводка */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Легкая тень */
 }
 
 .day {

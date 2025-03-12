@@ -41,9 +41,10 @@ function addTask() {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-card");
     taskItem.innerHTML = `
-        <h3>${title}</h3>
-        <p><strong>Time:</strong> ${time}</p>
-        <p>${text}</p>
+        <h3 class="task-title">${title}</h3>
+        <p><strong>Time:</strong> <span class="task-time">${time}</span></p>
+        <p class="task-text">${text}</p>
+        <button class="edit-btn" onclick="editTask(this)">Edit</button>
         <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
     `;
 
@@ -55,6 +56,45 @@ function addTask() {
     // Закрываем модальное окно
     closeTaskModal();
 }
+
+function editTask(button) {
+    let taskCard = button.parentElement;
+    
+    let title = taskCard.querySelector(".task-title");
+    let time = taskCard.querySelector(".task-time");
+    let text = taskCard.querySelector(".task-text");
+
+    // Делаем содержимое редактируемым
+    title.contentEditable = true;
+    time.contentEditable = true;
+    text.contentEditable = true;
+
+    // Меняем кнопку "Edit" на "Save"
+    button.innerText = "Save Changes";
+    button.onclick = function () {
+        saveEditedTask(button);
+    };
+}
+
+function saveEditedTask(button) {
+    let taskCard = button.parentElement;
+    
+    let title = taskCard.querySelector(".task-title");
+    let time = taskCard.querySelector(".task-time");
+    let text = taskCard.querySelector(".task-text");
+
+    // Делаем содержимое НЕ редактируемым
+    title.contentEditable = false;
+    time.contentEditable = false;
+    text.contentEditable = false;
+
+    // Меняем кнопку обратно на "Edit"
+    button.innerText = "Edit";
+    button.onclick = function () {
+        editTask(button);
+    };
+}
+
 
 // Удаление задачи
 function deleteTask(button) {
