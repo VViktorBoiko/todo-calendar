@@ -1,70 +1,25 @@
-const backendUrl = "https://todo-calendar-backend-production.up.railway.app";
-
-async function loadTasks() {
-    const params = new URLSearchParams(window.location.search);
-    const date = params.get("date");
-
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const date = urlParams.get("date");
     document.getElementById("selected-date").innerText = date;
 
-    try {
-        let response = await fetch(`${backendUrl}/tasks?date=${date}`);
-        let tasks = await response.json();
+    document.getElementById("add-task-btn").addEventListener("click", () => {
+        document.getElementById("task-modal").style.display = "block";
+    });
 
-        let taskList = document.getElementById("task-list");
-        taskList.innerHTML = "";
+    document.getElementById("close-modal").addEventListener("click", () => {
+        document.getElementById("task-modal").style.display = "none";
+    });
 
-        tasks.forEach(task => {
-            let li = document.createElement("li");
-            li.innerHTML = `
-                <span>${task.text}</span>
-                <button onclick="toggleTask('${task._id}')">${task.completed ? "✅" : "❌"}</button>
-                <button onclick="deleteTask('${task._id}')">🗑</button>
-            `;
-            taskList.appendChild(li);
-        });
+    document.getElementById("save-task").addEventListener("click", () => {
+        let taskText = document.getElementById("task-text").value;
+        if (!taskText.trim()) return;
 
-    } catch (error) {
-        console.error("Ошибка загрузки задач:", error);
-    }
-}
+        let taskElement = document.createElement("div");
+        taskElement.innerText = taskText;
+        document.getElementById("task-list").appendChild(taskElement);
 
-async function addTask() {
-    const params = new URLSearchParams(window.location.search);
-    const date = params.get("date");
-    const text = document.getElementById("new-task-text").value;
-
-    if (!text) return;
-
-    try {
-        await fetch(`${backendUrl}/tasks`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text, date, completed: false })
-        });
-
-        document.getElementById("new-task-text").value = "";
-        loadTasks();
-    } catch (error) {
-        console.error("Ошибка добавления задачи:", error);
-    }
-}
-
-async function toggleTask(id) {
-    try {
-        await fetch(`${backendUrl}/tasks/${id}/toggle`, { method: "PUT" });
-        loadTasks();
-    } catch (error) {
-        console.error("Ошибка обновления задачи:", error);
-    }
-}
-
-async function deleteTask(id) {
-    try {
-        await fetch(`${backendUrl}/tasks/${id}`, { method: "DELETE" });
-        loadTasks();
-    } catch (error) {
-        console.error("Ошибка удаления задачи:", error);
-    }
-}
-
-document.addEventListener("DOMContentLoaded", loadTasks);
+        document.getElementById("task-modal").style.display = "none";
+        document.getElementById("task-text").value = "";
+    });
+});

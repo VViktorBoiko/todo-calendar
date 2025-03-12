@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📝 Задачи на день</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Tasks for the Day</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="day.js"></script>
 </head>
 <body>
-    <h1>📝 Задачи на <span id="selected-date"></span></h1>
-    <ul id="task-list"></ul>
-    <input type="text" id="task-input" placeholder="Введите задачу...">
-    <button onclick="addTask()">➕ Добавить задачу</button>
-    <a href="index.html">⬅ Вернуться к календарю</a>
-
-    <script src="api.js"></script>
-    <script src="day.js"></script>
+    <div class="container">
+        <h1 id="day-title">Tasks for <span id="selected-date"></span></h1>
+        <div id="task-list"></div>
+        <button id="add-task-btn">➕ Add Task</button>
+        <div id="task-modal" class="modal">
+            <div class="modal-content">
+                <h2>Add a Task</h2>
+                <input type="text" id="task-text" placeholder="Enter task...">
+                <button id="save-task">Save</button>
+                <button id="close-modal">Cancel</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,22 +1,27 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📅 To-Do List Календарь</title>
-    <link rel="stylesheet" href="style.css">
+    <title>To-Do List Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <h1>📅 To-Do List Календарь</h1>
-    
-    <div id="calendar-container">
-        <div class="weekdays">
-            <div>Пн</div> <div>Вт</div> <div>Ср</div> <div>Чт</div>
-            <div>Пт</div> <div>Сб</div> <div>Вс</div>
+    <div class="container">
+        <h1>📅 To-Do List Calendar</h1>
+        <div class="calendar-container">
+            <div class="weekdays">
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+                <div>Sun</div>
+            </div>
+            <div id="calendar"></div>
         </div>
-        <div id="calendar"></div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
