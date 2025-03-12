@@ -53,15 +53,23 @@ button {
     background-color: #e6c200;
 }
 
-/* Кнопка Delete */
 .delete-btn {
-    background-color: red;
+    background-color: #d9534f;
     color: white;
-    border-radius: 8px; /* Скругленные углы */
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background 0.3s ease;
 }
 
 .delete-btn:hover {
-    background-color: darkred;
+    background-color: #c9302c;
+}
+
+.delete-btn:active {
+    background-color: #a82320;
 }
 
 button:hover {

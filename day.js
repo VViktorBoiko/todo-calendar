@@ -39,11 +39,11 @@ function addTask() {
     loadTasks(date);
 }
 
-function loadTasks(date) {
+function loadTasks() {
     const taskList = document.getElementById("taskList");
     taskList.innerHTML = "";
 
-    const tasks = JSON.parse(localStorage.getItem(date)) || [];
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     tasks.forEach((task, index) => {
         const taskCard = document.createElement("div");
@@ -51,16 +51,18 @@ function loadTasks(date) {
 
         taskCard.innerHTML = `
             <h3>${task.title}</h3>
-            <p><strong>Time:</strong> ${task.time || "No time set"}</p>
-            <p>${task.text}</p>
-            <button onclick="deleteTask('${date}', ${index})">Delete</button>
+            <p><strong>Time:</strong> ${task.time}</p>
+            <p>${task.description}</p>
+            <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
         `;
 
         taskList.appendChild(taskCard);
     });
 }
 
-function deleteTask(button) {
-    let taskDiv = button.parentElement;
-    taskDiv.remove();
+function deleteTask(index) {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.splice(index, 1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    loadTasks();
 }
