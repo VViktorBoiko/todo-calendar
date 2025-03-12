@@ -1,25 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const date = urlParams.get("date");
-    document.getElementById("selected-date").innerText = date;
+    let date = new URLSearchParams(window.location.search).get("date");
+    document.getElementById("taskTitle").innerText = `Tasks for ${new Date().getFullYear()}-${new Date().getMonth() + 1}-${date}`;
+    
+    loadTasks(date);
 
-    document.getElementById("add-task-btn").addEventListener("click", () => {
-        document.getElementById("task-modal").style.display = "block";
-    });
-
-    document.getElementById("close-modal").addEventListener("click", () => {
-        document.getElementById("task-modal").style.display = "none";
-    });
-
-    document.getElementById("save-task").addEventListener("click", () => {
-        let taskText = document.getElementById("task-text").value;
-        if (!taskText.trim()) return;
-
-        let taskElement = document.createElement("div");
-        taskElement.innerText = taskText;
-        document.getElementById("task-list").appendChild(taskElement);
-
-        document.getElementById("task-modal").style.display = "none";
-        document.getElementById("task-text").value = "";
+    document.getElementById("taskForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        addTask(date);
     });
 });
+
+function showTaskModal() {
+    document.getElementById("taskModal").style.display = "block";
+}
+
+function closeTaskModal() {
+    document.getElementById("taskModal").style.display = "none";
+}
+
+function goBack() {
+    window.history.back();
+}
+
+async function loadTasks(date) {
+    try {
+        let response = await fetch(`https://your-backend-api/tasks?date=${date}`);
+        let tasks = await response.json();
+        let taskList = document.getElementById("taskList");
+        taskList.innerHTML = "";
+        
+        tasks.forEach(task => {
+            let taskItem = document.createElement("div");
+            taskItem.className = "task-item";
+            taskItem.innerHTML = `<b>${task.title}</b> (${task.time}) - ${task.text}`;
+            taskList.appendChild(taskItem);
+        });
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+    }
+}
+
+async function addTask(date) {
+    let title = document.getElementById("taskTitleInput").value;
+    let time = document.getElementById("taskTimeInput").value;
+    let text = document.getElementById("taskInput").value;
+
+    let newTask = { title, time, text, date, completed: false };
+
+    try {
+        await fetch("https://your-backend-api/tasks", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newTask),
+        });
+
+        closeTaskModal();
+        loadTasks(date);
+    } catch (error) {
+        console.error("Error adding task:", error);
+    }
+}

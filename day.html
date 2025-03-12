@@ -9,15 +9,24 @@
 </head>
 <body>
     <div class="container">
-        <h1 id="day-title">Tasks for <span id="selected-date"></span></h1>
-        <div id="task-list"></div>
-        <button id="add-task-btn">➕ Add Task</button>
-        <div id="task-modal" class="modal">
+        <h1 id="taskTitle"></h1>
+        <button class="add-task-btn" onclick="showTaskModal()">+ Add Task</button>
+        <button class="back-btn" onclick="goBack()">🔙 Back</button>
+
+        <div id="taskList" class="task-list"></div>
+
+        <div id="taskModal" class="modal">
             <div class="modal-content">
                 <h2>Add a Task</h2>
-                <input type="text" id="task-text" placeholder="Enter task...">
-                <button id="save-task">Save</button>
-                <button id="close-modal">Cancel</button>
+                <form id="taskForm">
+                    <input type="text" id="taskTitleInput" placeholder="Task title..." required>
+                    <input type="time" id="taskTimeInput" required>
+                    <input type="text" id="taskInput" placeholder="Enter task..." required>
+                    <div class="modal-buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                        <button type="button" class="cancel-btn" onclick="closeTaskModal()">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -2,18 +2,12 @@ function generateCalendar() {
     let calendar = document.getElementById("calendar");
     calendar.innerHTML = "";
 
-    let year = new Date().getFullYear();
-    let month = new Date().getMonth();
-    let firstDay = new Date(year, month, 1).getDay();
-    let daysInMonth = new Date(year, month + 1, 0).getDate();
+    let firstDay = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay();
+    let daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
 
-    // Adjust start for Monday as the first day
-    let startDay = firstDay === 0 ? 6 : firstDay - 1;
-
-    for (let i = 0; i < startDay; i++) {
-        let empty = document.createElement("div");
-        empty.className = "day empty";
-        calendar.appendChild(empty);
+    for (let i = 0; i < firstDay; i++) {
+        let emptyCell = document.createElement("div");
+        calendar.appendChild(emptyCell);
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
