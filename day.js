@@ -1,41 +1,39 @@
-document.addEventListener("DOMContentLoaded", () => {
-    let date = new URLSearchParams(window.location.search).get("date");
-    document.getElementById("taskTitle").innerText = `Tasks for ${new Date().getFullYear()}-${new Date().getMonth() + 1}-${date}`;
-    
-    loadTasks(date);
+function showTaskModal() {
+    document.getElementById("taskModal").style.display = "block";
+}
 
-    document.getElementById("taskForm").addEventListener("submit", async (event) => {
-        event.preventDefault();
-        await addTask(date);
-    });
-});
+function closeTaskModal() {
+    document.getElementById("taskModal").style.display = "none";
+}
 
-async function addTask(date) {
-    let title = document.getElementById("taskTitleInput").value;
-    let time = document.getElementById("taskTimeInput").value;
-    let text = document.getElementById("taskInput").value;
+function goBack() {
+    window.location.href = "index.html";
+}
 
-    if (!title || !text) {
-        alert("Please enter a task title and description.");
-        return;
-    }
+function addTask() {
+    let taskTitle = document.getElementById("taskTitleInput").value;
+    let taskTime = document.getElementById("taskTimeInput").value;
+    let taskDescription = document.getElementById("taskInput").value;
 
-    let newTask = { title, time, text, date, completed: false };
+    if (taskTitle && taskDescription) {
+        let taskList = document.getElementById("taskList");
+        let taskItem = document.createElement("div");
+        taskItem.className = "task-item";
+        taskItem.innerHTML = `<strong>${taskTitle}</strong> at ${taskTime} <br> ${taskDescription}`;
+        taskList.appendChild(taskItem);
 
-    try {
-        let response = await fetch("https://your-backend-api/tasks", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newTask),
-        });
+        document.getElementById("taskTitleInput").value = "";
+        document.getElementById("taskTimeInput").value = "";
+        document.getElementById("taskInput").value = "";
 
-        if (response.ok) {
-            closeTaskModal();
-            loadTasks(date);
-        } else {
-            console.error("Error adding task:", response.statusText);
-        }
-    } catch (error) {
-        console.error("Error adding task:", error);
+        closeTaskModal();
+    } else {
+        alert("Please fill out all fields!");
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    let params = new URLSearchParams(window.location.search);
+    let date = params.get("date");
+    document.getElementById("taskTitle").innerText = `Tasks for ${new Date().getFullYear()}-${new Date().getMonth() + 1}-${date}`;
+});

@@ -10,23 +10,22 @@
 <body>
     <div class="container">
         <h1 id="taskTitle"></h1>
-        <button class="add-task-btn" onclick="showTaskModal()">+ Add Task</button>
-        <button class="back-btn" onclick="goBack()">🔙 Back</button>
-
+        <div class="task-controls">
+            <button class="add-task-btn" onclick="showTaskModal()">+ Add Task</button>
+            <button class="back-btn" onclick="goBack()">🔙 Back</button>
+        </div>
         <div id="taskList" class="task-list"></div>
 
         <div id="taskModal" class="modal">
             <div class="modal-content">
                 <h2>Add a Task</h2>
-                <form id="taskForm">
-                    <input type="text" id="taskTitleInput" placeholder="Task title..." required>
-                    <input type="time" id="taskTimeInput" required>
-                    <input type="text" id="taskInput" placeholder="Enter task..." required>
-                    <div class="modal-buttons">
-                        <button type="submit" class="save-btn">Save</button>
-                        <button type="button" class="cancel-btn" onclick="closeTaskModal()">Cancel</button>
-                    </div>
-                </form>
+                <input type="text" id="taskTitleInput" placeholder="Task title...">
+                <input type="time" id="taskTimeInput">
+                <input type="text" id="taskInput" placeholder="Enter task...">
+                <div class="modal-buttons">
+                    <button class="save-btn" onclick="addTask()">Save</button>
+                    <button class="cancel-btn" onclick="closeTaskModal()">Cancel</button>
+                </div>
             </div>
         </div>
     </div>

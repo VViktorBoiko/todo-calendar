@@ -1,59 +1,62 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #FFCC80;
-    text-align: center;
+    background-color: #F4A261;
     margin: 0;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    background: #FF8A65;
+    text-align: center;
+    background: #FF7F50;
     padding: 20px;
     border-radius: 10px;
-    max-width: 600px;
-    margin: 20px auto;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-h1 {
-    font-size: 24px;
-    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .weekdays {
     display: flex;
     justify-content: space-between;
-    font-weight: bold;
+    background: #FF6F61;
     padding: 10px;
-    background: #FF7043;
+    border-radius: 10px;
+    font-weight: bold;
     color: white;
-    border-radius: 5px;
 }
 
-#calendar {
+.calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    padding: 10px;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .day {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    font-size: 16px;
+    transition: 0.3s;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .day:hover {
-    background: #FFAB91;
-    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.task-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .add-task-btn, .back-btn {
-    margin-top: 10px;
-    padding: 10px 20px;
+    padding: 10px 15px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -64,16 +67,8 @@ h1 {
     background: yellow;
 }
 
-.add-task-btn:hover {
-    background: gold;
-}
-
 .back-btn {
     background: lightgray;
-}
-
-.back-btn:hover {
-    background: gray;
 }
 
 .modal {
@@ -85,64 +80,40 @@ h1 {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.modal-content {
-    text-align: center;
-}
-
-input {
-    width: 80%;
+.modal-content input {
+    display: block;
+    width: 90%;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid gray;
+    margin-bottom: 10px;
     border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 .modal-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .save-btn {
-    background: lightgray;
+    background: #D3D3D3;
     color: black;
     padding: 10px;
-    border: none;
+    border-radius: 10px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
 }
-
-.save-btn:hover {
-    background: darkgray;
-    transform: scale(1.05);
-}
-
 
 .cancel-btn {
     background: red;
     color: white;
     padding: 10px;
-    border: none;
+    border-radius: 10px;
     cursor: pointer;
-    border-radius: 5px;
-}
-
-.cancel-btn:hover {
-    background: darkred;
 }
 
 .task-list {
     margin-top: 20px;
     text-align: left;
-}
-
-.task-item {
-    background: white;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
