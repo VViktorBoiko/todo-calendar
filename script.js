@@ -39,7 +39,7 @@ function generateCalendar() {
         day.onclick = () => window.location.href = `day.html?date=${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${i}`;
         calendar.appendChild(day);
     }
-}
+}   
 
 function prevMonth() {
     currentDate.setMonth(currentDate.getMonth() - 1);

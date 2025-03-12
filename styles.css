@@ -54,6 +54,9 @@ button {
 }
 
 .delete-btn {
+    width: 100px;  /* Фиксированная ширина */
+    height: 40px;  /* Фиксированная высота */
+    text-align: center;
     background-color: #d9534f;
     color: white;
     border: none;
@@ -129,7 +132,7 @@ button:hover {
 /* Подсветка сегодняшнего дня */
 .today {
     background-color: #ff4d4d; /* Красный цвет */
-    color: white; /* Белый текст */
+    color: rgba(0, 0, 0, 0); /* Белый текст */
     font-weight: bold;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);

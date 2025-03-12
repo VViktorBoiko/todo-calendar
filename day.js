@@ -77,7 +77,7 @@ function editTask(index, button) {
         titleElement.contentEditable = "true";
         textElement.contentEditable = "true";
         titleElement.focus();
-        button.innerText = "Save Changes";
+        button.innerText = "Save";
         button.classList.add("save-btn");
     } else {
         // Сохранить изменения
