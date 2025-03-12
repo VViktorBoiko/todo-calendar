@@ -2,6 +2,7 @@ let currentDate = new Date();
 
 document.addEventListener("DOMContentLoaded", function () {
     generateCalendar();
+    loadTodayTasks(); // Загружаем задачи за сегодня под календарем
 });
 
 function generateCalendar() {
@@ -14,7 +15,7 @@ function generateCalendar() {
     let firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
     let daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
 
-    let today = new Date(); // Получаем текущую дату
+    let today = new Date();
     let todayDay = today.getDate();
     let todayMonth = today.getMonth();
     let todayYear = today.getFullYear();
@@ -31,7 +32,7 @@ function generateCalendar() {
         day.className = "day";
         day.innerText = i;
 
-        // ✅ Если текущая дата = сегодня, добавляем класс
+        // ✅ Если день сегодня — выделяем
         if (i === todayDay && currentDate.getMonth() === todayMonth && currentDate.getFullYear() === todayYear) {
             day.classList.add("today");
         }
@@ -39,8 +40,9 @@ function generateCalendar() {
         day.onclick = () => window.location.href = `day.html?date=${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${i}`;
         calendar.appendChild(day);
     }
-}   
+}
 
+// Переключение месяцев
 function prevMonth() {
     currentDate.setMonth(currentDate.getMonth() - 1);
     generateCalendar();
@@ -49,4 +51,26 @@ function prevMonth() {
 function nextMonth() {
     currentDate.setMonth(currentDate.getMonth() + 1);
     generateCalendar();
+}
+
+// ✅ **Функция загрузки сегодняшних задач под календарем**
+function loadTodayTasks() {
+    let today = new Date();
+    let todayDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+
+    let tasks = JSON.parse(localStorage.getItem(`tasks-${todayDate}`)) || [];
+    let taskList = document.getElementById("todayTaskList");
+
+    taskList.innerHTML = ""; // Очищаем список перед загрузкой
+
+    tasks.forEach(task => {
+        let taskItem = document.createElement("div");
+        taskItem.classList.add("task-card");
+        taskItem.innerHTML = `
+            <h3>${task.title}</h3>
+            <p><strong>Time:</strong> ${task.time}</p>
+            <p>${task.text}</p>
+        `;
+        taskList.appendChild(taskItem);
+    });
 }

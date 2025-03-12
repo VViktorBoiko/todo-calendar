@@ -141,6 +141,12 @@ button:hover {
     border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
+    display: flex;       /* Используем flexbox */
+    align-items: center; /* Выравниваем по вертикали */
+    justify-content: center; /* Выравниваем по горизонтали */
+    font-weight: bold;   /* Делаем шрифт жирным */
+    font-size: 1.2em;    /* Немного увеличиваем размер текста */
+    text-align: center;  /* Центрируем текст */
 }
 
 .day:hover {
