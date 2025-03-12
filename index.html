@@ -10,6 +10,11 @@
 <body>
     <div class="container">
         <h1>📅 To-Do List Calendar</h1>
+        <div class="month-controls">
+            <button class="month-btn" onclick="changeMonth(-1)">◀ Previous</button>
+            <h2 id="currentMonth"></h2>
+            <button class="month-btn" onclick="changeMonth(1)">Next ▶</button>
+        </div>
         <div class="weekdays">
             <div>Mon</div>
             <div>Tue</div>
