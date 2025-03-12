@@ -83,6 +83,7 @@ button:hover {
     max-width: 400px;
 }
 
+/* Окно модального окна */
 .modal {
     display: none;
     position: fixed;
@@ -91,37 +92,42 @@ button:hover {
     transform: translate(-50%, -50%);
     background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    width: 420px;
 }
 
+/* Контент в окне */
 .modal-content {
     text-align: center;
 }
 
+/* Заголовок */
 .modal-content h2 {
     margin-bottom: 15px;
 }
 
+/* Поля ввода */
 .modal-content input {
     width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 16px;
 }
 
+/* Кнопки */
 .modal-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .save-btn {
     background-color: green;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -131,13 +137,14 @@ button:hover {
 .cancel-btn {
     background-color: red;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
 }
 
+/* Наведение */
 .save-btn:hover {
     background-color: #0b7d16;
 }
