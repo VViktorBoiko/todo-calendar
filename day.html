@@ -8,6 +8,7 @@
     <script defer src="day.js"></script>
 </head>
 <body>
+    <!-- Заголовок с датой и кнопками -->
     <div class="task-header">
         <h1 id="taskTitle"></h1>
         <div class="task-buttons">
@@ -16,10 +17,14 @@
         </div>
     </div>
 
+    <!-- Контейнер для задач -->
     <div id="taskContainer">
-        <div id="taskList" class="task-list"></div>
+        <div id="taskListContainer">
+            <div id="taskList" class="task-list"></div>
+        </div>
     </div>
 
+    <!-- Модальное окно добавления задач -->
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <h2>Add a Task</h2>

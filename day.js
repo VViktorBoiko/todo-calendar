@@ -39,6 +39,10 @@ function addTask() {
     loadTasks(date);
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    loadTasks();
+});
+
 function loadTasks() {
     const taskList = document.getElementById("taskList");
     taskList.innerHTML = "";
@@ -62,7 +66,11 @@ function loadTasks() {
 
 function deleteTask(index) {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.splice(index, 1);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    loadTasks();
+    
+    if (index >= 0 && index < tasks.length) {
+        tasks.splice(index, 1); // Удаляем задачу по индексу
+        localStorage.setItem("tasks", JSON.stringify(tasks)); // Обновляем localStorage
+        loadTasks(); // Перезагружаем список задач
+    }
 }
+
