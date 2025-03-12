@@ -8,24 +8,23 @@
     <script defer src="day.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="task-header">
         <h1 id="taskTitle"></h1>
-        <div class="task-controls">
-            <button class="add-task-btn" onclick="showTaskModal()">+ Add Task</button>
-            <button class="back-btn" onclick="goBack()">🔙 Back</button>
-        </div>
-        <div id="taskList" class="task-list"></div>
+        <button class="add-task-btn" onclick="showTaskModal()">+ Add Task</button>
+        <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    </div>
 
-        <div id="taskModal" class="modal">
-            <div class="modal-content">
-                <h2>Add a Task</h2>
-                <input type="text" id="taskTitleInput" placeholder="Task title...">
-                <input type="time" id="taskTimeInput">
-                <input type="text" id="taskInput" placeholder="Enter task...">
-                <div class="modal-buttons">
-                    <button class="save-btn" onclick="addTask()">Save</button>
-                    <button class="cancel-btn" onclick="closeTaskModal()">Cancel</button>
-                </div>
+    <div id="taskList" class="task-list"></div>
+
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <h2>Add a Task</h2>
+            <input type="text" id="taskTitleInput" placeholder="Task title...">
+            <input type="time" id="taskTimeInput">
+            <input type="text" id="taskInput" placeholder="Enter task...">
+            <div class="modal-buttons">
+                <button class="save-btn" onclick="addTask()">Save</button>
+                <button class="cancel-btn" onclick="closeTaskModal()">Cancel</button>
             </div>
         </div>
     </div>

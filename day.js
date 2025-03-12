@@ -1,39 +1,44 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date");
+    const month = params.get("month");
+    const year = params.get("year");
+
+    document.getElementById("taskTitle").innerText = `Tasks for ${year}-${month}-${date}`;
+
+    loadTasks(`${year}-${month}-${date}`);
+});
+
+function goBack() {
+    window.location.href = "index.html";
+}
+
 function showTaskModal() {
-    document.getElementById("taskModal").style.display = "block";
+    document.getElementById("taskModal").style.display = "flex";
 }
 
 function closeTaskModal() {
     document.getElementById("taskModal").style.display = "none";
 }
 
-function goBack() {
-    window.location.href = "index.html";
-}
-
 function addTask() {
-    let taskTitle = document.getElementById("taskTitleInput").value;
-    let taskTime = document.getElementById("taskTimeInput").value;
-    let taskDescription = document.getElementById("taskInput").value;
+    const title = document.getElementById("taskTitleInput").value;
+    const time = document.getElementById("taskTimeInput").value;
+    const task = document.getElementById("taskInput").value;
 
-    if (taskTitle && taskDescription) {
-        let taskList = document.getElementById("taskList");
-        let taskItem = document.createElement("div");
-        taskItem.className = "task-item";
-        taskItem.innerHTML = `<strong>${taskTitle}</strong> at ${taskTime} <br> ${taskDescription}`;
-        taskList.appendChild(taskItem);
+    if (!task.trim()) return;
 
-        document.getElementById("taskTitleInput").value = "";
-        document.getElementById("taskTimeInput").value = "";
-        document.getElementById("taskInput").value = "";
+    const taskContainer = document.createElement("div");
+    taskContainer.className = "task-container";
 
-        closeTaskModal();
-    } else {
-        alert("Please fill out all fields!");
-    }
+    taskContainer.innerHTML = `
+        <h3>${title}</h3>
+        <p><strong>Time:</strong> ${time}</p>
+        <p>${task}</p>
+        <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+    `;
+
+    document.getElementById("taskList").appendChild(taskContainer);
+
+    closeTaskModal();
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    let params = new URLSearchParams(window.location.search);
-    let date = params.get("date");
-    document.getElementById("taskTitle").innerText = `Tasks for ${new Date().getFullYear()}-${new Date().getMonth() + 1}-${date}`;
-});
