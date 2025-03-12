@@ -76,7 +76,15 @@ button:hover {
     background-color: #F7C948;
 }
 
-.weekdays, .calendar {
+.weekdays {
+    display: flex;
+    justify-content: space-around;
+    background-color: #d3d3d3; /* Светло-серый фон */
+    padding: 10px;
+    border-radius: 8px; /* Скругление краев */
+}
+
+.calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;

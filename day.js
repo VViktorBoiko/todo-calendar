@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const date = params.get("date");
 
     if (date) {
-        taskTitle.innerText = `Tasks for ${new Date().getFullYear()}-${new Date().getMonth() + 1}-${date}`;
+        taskTitle.innerText = `Tasks for ${date}`;
     } else {
         taskTitle.innerText = "Tasks for Today";
     }
